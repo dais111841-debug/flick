@@ -16,7 +16,7 @@
       "binding": "DB",
       "database_name": "flick-db",
       // `wrangler d1 create flick-db` の出力で置き換えてください（GitHub Actions では自動で作成・置換されます）
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "d85ba77b-de53-46bb-8574-e8219683a04a",
       "migrations_dir": "migrations"
     }
   ],
