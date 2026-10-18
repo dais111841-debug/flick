@@ -52,6 +52,14 @@ printf 'DEV_MODE=1\n' > .dev.vars
 npm run test:e2e
 ```
 
+### 本番環境に対するテスト
+
+```bash
+PROD_URL=https://flick.dais111841.workers.dev CLOUDFLARE_API_TOKEN=... CLOUDFLARE_ACCOUNT_ID=... npm run test:e2e
+```
+
+本番には開発用ログインが無いため、ログイン後の機能（同期・Workers AI・音声）はテスト用ユーザーとセッションを D1 に一時作成して検証し、終了時に削除します。
+
 ## デプロイ
 
 1. Cloudflare の API トークンを作成（Workers Scripts 編集 / D1 編集 / Workers AI 読み取り / Account Settings 読み取り）
