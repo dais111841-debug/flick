@@ -1,0 +1,44 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "flick",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*", "/auth/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "flick-db",
+      // `wrangler d1 create flick-db` の出力で置き換えてください（GitHub Actions では自動で作成・置換されます）
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "ai": { "binding": "AI" },
+  "vars": {
+    "AI_MODEL": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    "STT_MODEL": "@cf/openai/whisper-large-v3-turbo",
+    "AI_DAILY_LIMIT": "60"
+  }
+  // GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET は `wrangler secret put` で登録します
+  ,
+  "env": {
+    // ローカルの E2E テスト用。Workers AI（リモート専用）を外し、.dev.vars の DEV_MODE=1 で AI をモックする
+    "e2e": {
+      "d1_databases": [
+        { "binding": "DB", "database_name": "flick-db", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }
+      ],
+      "vars": {
+        "AI_MODEL": "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+        "STT_MODEL": "@cf/openai/whisper-large-v3-turbo",
+        "AI_DAILY_LIMIT": "60"
+      }
+    }
+  }
+}

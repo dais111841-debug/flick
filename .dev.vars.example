@@ -1,0 +1,5 @@
+# ローカル開発用（このファイルを .dev.vars にコピーして値を入れる。.dev.vars は Git 管理外）
+# DEV_MODE=1 のとき、localhost に限り開発用ログインと AI のモックが有効になります（本番では設定しない）
+DEV_MODE=1
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=

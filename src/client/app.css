@@ -1,0 +1,116 @@
+:root {
+  --paper: #fbfcfe;
+  --ice: #c7d9ff;
+  --lilac: #e0d3ff;
+  --mint: #c8eedd;
+  --ink: #1c2230;
+  --muted: #6b7385;
+  --faint: #8a93a6;
+  --line: rgba(28, 34, 48, 0.08);
+
+  --todo: #8a93a6;
+  --doing: #2f6bff;
+  --done: #11a37a;
+  --danger: #e5484d;
+
+  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.34));
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --glass-blur: blur(16px) saturate(190%) brightness(1.05);
+  /* 上辺の鋭い光・下辺の柔らかい照り返し・外側の淡い影で「厚みのあるガラス」を表現 */
+  --glass-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 1), inset 0 -10px 18px -14px rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.6), 0 12px 32px -10px rgba(40, 60, 110, 0.16), 0 1px 2px rgba(40, 60, 110, 0.07);
+
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP',
+    'Noto Sans CJK JP', system-ui, sans-serif;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  background: var(--paper);
+}
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button,
+[role='button'] {
+  transition: transform 0.35s var(--spring), background-color 0.25s, opacity 0.25s;
+}
+button:active:not(:disabled) {
+  transform: scale(0.93);
+  transition-duration: 0.08s;
+}
+
+:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--doing) 70%, white);
+  outline-offset: 2px;
+}
+
+.glass {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+/* 上辺のスペキュラーハイライト（Liquid Glass の縁の光） */
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(120% 60% at 15% -10%, rgba(255, 255, 255, 0.9), transparent 55%),
+    linear-gradient(180deg, transparent 60%, rgba(255, 255, 255, 0.25));
+  mix-blend-mode: soft-light;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
